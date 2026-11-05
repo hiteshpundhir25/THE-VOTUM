@@ -1,12 +1,12 @@
 public class Admin {
-    private final String[] candidates = { "Ashish Kuntal", "Parth", "Swayam"} ;
+    private final String[] candidates = { "Ashish Kuntal", "Parth", "Swayam" };
     private final int[] counts = new int[3];
     private final Voter[] voters = new Voter[3];
 
     Admin() {
         voters[0] = new Voter(1, 1234);
-        voters[1] = new Voter(2, 5678);
-        voters[2] = new Voter(3, 9012);
+        voters[1] = new Voter(2, 1234);
+        voters[2] = new Voter(3, 1234);
     }
 
     int findVoter(int id, int pin) {

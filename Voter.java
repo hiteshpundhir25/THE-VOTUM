@@ -30,12 +30,10 @@ public class Voter {
         }
         System.out.print("Enter the number of your candidate (1 to 3): ");
         int choice = input.nextInt();
-
         if (choice < 1 || choice > admin.getCandidateCount()) {
             System.out.println("Wrong number, please enter 1, 2 or 3. Your vote is not counted.");
             return;
         }
-
         admin.addVote(choice);
         markVoted();
         System.out.println("Thank you! You voted for " + admin.getCandidateName(choice - 1) + ".");

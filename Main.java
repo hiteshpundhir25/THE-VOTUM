@@ -4,21 +4,24 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Admin admin = new Admin();
-
         int choice = 0;
         while (choice != 3) {
+            System.out.println(" ");
+            System.out.println("==================");
+            System.out.println("    THE VOTUM     ");
+            System.out.println("==================");
+            System.out.println(" ");
             System.out.println("1) VOTE");
             System.out.println("2) RESULTS");
             System.out.println("3) EXIT");
+            System.out.println(" ");
             System.out.print("Enter your option: ");
             choice = input.nextInt();
-
             if (choice == 1) {
                 System.out.print("Enter your voter id (1 to 3): ");
                 int id = input.nextInt();
                 System.out.print("Enter your pin: ");
                 int pin = input.nextInt();
-
                 int i = admin.findVoter(id, pin);
                 if (i == -1) {
                     System.out.println("Wrong id or pin, try again.");
@@ -36,5 +39,6 @@ public class Main {
             }
             System.out.println();
         }
+        input.close();
     }
 }
