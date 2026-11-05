@@ -135,17 +135,17 @@ The data is fixed inside `Admin.java`.
 
 | Number | Name |
 |---|---|
-| 1 | Alice |
-| 2 | Bob |
-| 3 | Chen |
+| 1 | Ashish Kuntal |
+| 2 | Parth |
+| 3 | Swayam |
 
 **Voters**
 
 | Voter ID | PIN |
 |---|---|
 | 1 | 1234 |
-| 2 | 5678 |
-| 3 | 9012 |
+| 2 | 1234 |
+| 3 | 1234 |
 
 ---
 
@@ -156,10 +156,15 @@ The data is fixed inside `Admin.java`.
 When the program starts you will see:
 
 ```text
-1) I am a voter, I want to vote
-2) I am admin, show the results
-3) Exit
-Enter your option:
+==================
+    THE VOTUM     
+==================
+ 
+1) VOTE
+2) RESULTS
+3) EXIT
+ 
+Enter your option: 
 ```
 
 Type `1`, `2` or `3` and press Enter. Any other number shows `Wrong option, enter 1, 2 or 3.`
@@ -168,7 +173,7 @@ Type `1`, `2` or `3` and press Enter. Any other number shows `Wrong option, ente
 
 1. Enter `1`.
 2. Enter your voter ID (1 to 3).
-3. Enter your PIN.
+3. Enter your PIN (`1234`).
 4. Pick a candidate by typing its number.
 
 Sample run:
@@ -178,11 +183,11 @@ Enter your option: 1
 Enter your voter id (1 to 3): 1
 Enter your pin: 1234
 These are the candidates:
-1) Alice
-2) Bob
-3) Chen
+1) Ashish Kuntal
+2) Parth
+3) Swayam
 Enter the number of your candidate (1 to 3): 2
-Thank you! You voted for Bob.
+Thank you! You voted for Parth.
 ```
 
 Possible messages:
@@ -202,9 +207,9 @@ Enter `2`. Sample output after the vote above:
 
 ```text
 Here are the results:
-Alice got 0 votes
-Bob got 1 votes
-Chen got 0 votes
+Ashish Kuntal got 0 votes
+Parth got 1 votes
+Swayam got 0 votes
 Total votes: 1
 ```
 
@@ -248,7 +253,7 @@ Holds the election data and shows the results.
 
 | Field | Type | Meaning |
 |---|---|---|
-| `candidates` | `private final String[]` | The names: Alice, Bob, Chen. |
+| `candidates` | `private final String[]` | The names: Ashish Kuntal, Parth, Swayam. |
 | `counts` | `private final int[]` | Vote count of each candidate (same position as the name). |
 | `voters` | `private final Voter[]` | The three demo voters. |
 
@@ -277,6 +282,7 @@ The starting point of the program. It connects the other two classes.
 | Option 1 | Reads ID and PIN, calls `admin.findVoter(...)`, checks `hasVoted()`, then calls `castVote(...)`. |
 | Option 2 | Calls `admin.showResults()`. |
 | Option 3 | Prints the exit message and ends the loop. |
+| Resource cleanup | Calls `input.close()` after the loop to cleanly release the scanner. |
 
 **Uses from Admin:** `findVoter`, `getVoter`, `showResults`.
 **Uses from Voter:** `hasVoted`, `castVote`.
@@ -418,16 +424,16 @@ Run these after compiling. The tests are written in order, so run them in one se
 
 | No. | Owner | What to do | Expected result |
 |---|---|---|---|
-| 1 | Member 1 | Option 1, ID 1, PIN 1234, pick 2 | `Thank you! You voted for Bob.` |
-| 2 | Member 1 | Option 1, ID 3, PIN 9012, pick 7 | `Wrong number, please enter 1, 2 or 3. Your vote is not counted.` |
-| 3 | Member 1 | After test 2, option 1 again with ID 3, PIN 9012, pick 1 | Vote is accepted for Alice (voter was not marked as voted) |
+| 1 | Member 1 | Option 1, ID 1, PIN 1234, pick 2 | `Thank you! You voted for Parth.` |
+| 2 | Member 1 | Option 1, ID 3, PIN 1234, pick 7 | `Wrong number, please enter 1, 2 or 3. Your vote is not counted.` |
+| 3 | Member 1 | After test 2, option 1 again with ID 3, PIN 1234, pick 1 | Vote is accepted for Ashish Kuntal (voter was not marked as voted) |
 | 4 | Member 1 | Option 1 again with ID 1, PIN 1234 | `You have already voted, you can't vote again.` |
 | 5 | Member 2 | Option 1, ID 2, PIN 0000 | `Wrong id or pin, try again.` |
 | 6 | Member 2 | Option 1, ID 9, PIN 1234 | `Wrong id or pin, try again.` |
-| 7 | Member 2 | Option 2 after tests 1 to 3 | Alice 1, Bob 1, Chen 0, `Total votes: 2` |
+| 7 | Member 2 | Option 2 after tests 1 to 3 | Ashish Kuntal 1, Parth 1, Swayam 0, `Total votes: 2` |
 | 8 | Member 2 | Option 2 at the very start of a new run | All counts 0, `Total votes: 0` |
 | 9 | Member 3 | Enter `7` at the menu | `Wrong option, enter 1, 2 or 3.` |
-| 10 | Member 3 | After any action, check that the menu appears again | Menu is shown again |
+| 10 | Member 3 | After any action, check that the menu appears again | Menu is shown again with THE VOTUM banner |
 | 11 | Member 3 | Enter `3` | `Bye bye!` and the program stops |
 | 12 | Member 3 | Run again after exit, option 2 | Counts are 0 again (votes are not saved) |
 
